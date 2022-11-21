@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import backgroundImage from '../public/background-image.jpg';
+import backgroundImage from '../public/background-image-2.jpg';
 
 const UserLandingPage = () => {
   const router = useRouter();
@@ -26,11 +26,11 @@ const UserLandingPage = () => {
         <div className="col-start-2 flex flex-col gap-24 items-center justify-center w-full h-screen text-center">
           <div>
             <h1 className="text-[#F79256] text-6xl font-bold">COVID-19</h1>
-            <h1 className="text-[#5072B8] text-6xl font-bold">
+            <h1 className="text-[#5072B8] text-5xl font-bold">
               Classification System
             </h1>
           </div>
-          <p className="text-2xl font-light">
+          <p className="text-[#023047] text-2xl font-light">
             Membantu mengklasifikasi tingkat keparahan gejala COVID-19
           </p>
           <button
