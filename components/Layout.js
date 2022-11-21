@@ -36,13 +36,16 @@ const Layout = ({ children }) => {
             />
           </Link>
 
-          {router.pathname === '/' ? (
+          {router.pathname === '/' ? 
+          (
             <div>
               <Link href="/">
-                <p className="text-[#023047] font-bold">Masuk Sebagai Admin</p>
+                <p className="text-[#023047] font-bold">Admin</p>
               </Link>
             </div>
-          ) : (
+          ) 
+          :
+           (
             <div className="flex items-center justify-center gap-16 mr-16">
               <button
                 className={

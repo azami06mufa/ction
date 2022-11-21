@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { UserAuth } from '../context/AuthContext';
 
-import backgroundImage from '../public/background-image.jpg';
+import backgroundImage from '../public/background-image-2.jpg';
 
 const Homepage = () => {
   const { user } = UserAuth();
@@ -29,7 +29,7 @@ const Homepage = () => {
         <div className="col-start-2 flex flex-col gap-24 items-center justify-center w-full h-screen text-center">
           <div>
             <h1 className="text-[#F79256] text-6xl font-bold">COVID-19</h1>
-            <h1 className="text-[#5072B8] text-6xl font-bold">
+            <h1 className="text-[#5072B8] text-5xl font-bold">
               Classification System
             </h1>
           </div>
@@ -37,7 +37,7 @@ const Homepage = () => {
             Membantu mengklasifikasi tingkat keparahan gejala COVID-19
           </p>
           <Link href="/signin">
-            <p>klik disini</p>
+            <p className="text-blue-700 underline">klik disini</p>
           </Link>
         </div>
       </div>
