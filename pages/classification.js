@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 import backgroundImage from '../public/background-image.jpg';
 import placeholder from '../public/placeholder.png';
@@ -8,51 +9,95 @@ import placeholder from '../public/placeholder.png';
 const symptomsData = [
   {
     id: 1,
-    name: 'Gejala 1',
-    value: 'gejala1',
+    name: 'Fever',
+    value: 'Fever',
     img: require('../public/placeholder.png'),
   },
   {
     id: 2,
-    name: 'Gejala 2',
-    value: 'gejala2',
+    name: 'Tiredness',
+    value: 'Tiredness',
     img: require('../public/placeholder.png'),
   },
   {
     id: 3,
-    name: 'Gejala 3',
-    value: 'gejala3',
+    name: 'Dry-Cough',
+    value: 'Dry-Cough',
     img: require('../public/placeholder.png'),
   },
   {
     id: 4,
-    name: 'Gejala 4',
-    value: 'gejala4',
+    name: 'Difficulty-in-Breathing',
+    value: 'Difficulty-in-Breathing',
     img: require('../public/placeholder.png'),
   },
   {
     id: 5,
-    name: 'Gejala 5',
-    value: 'gejala5',
+    name: 'Sore-Throat',
+    value: 'Sore-Throat',
     img: require('../public/placeholder.png'),
   },
   {
     id: 6,
-    name: 'Gejala 6',
-    value: 'gejala6',
+    name: 'Pains',
+    value: 'Pains',
+    img: require('../public/placeholder.png'),
+  },
+  {
+    id: 7,
+    name: 'Nasal-Congestion',
+    value: 'Nasal-Congestion',
+    img: require('../public/placeholder.png'),
+  },
+  {
+    id: 8,
+    name: 'Runny-Nose',
+    value: 'Runny-Nose',
+    img: require('../public/placeholder.png'),
+  },
+  {
+    id: 9,
+    name: 'Diarrhea',
+    value: 'Diarrhea',
     img: require('../public/placeholder.png'),
   },
 ];
 
 const ClassificationPage = () => {
+  const router = useRouter();
+
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const submitHandler = (data) => {
+  const submitHandler = async (data) => {
     console.log(data);
+    console.log(router.query);
+    console.log(JSON.stringify({
+      ...data,
+      ...router.query
+    }))
+    try {
+      const response = await fetch("http://185.223.207.122:8020/predict", {
+        method: "POST",
+        body: JSON.stringify({
+          ...data,
+          ...router.query
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+      });
+      const prediction = await response.json();
+      router.push({
+        pathname: '/result',
+        query: prediction,
+      });
+    } catch (err) {
+      console.log(err);
+    }    
   };
 
   return (
@@ -120,7 +165,28 @@ const ClassificationPage = () => {
               </li>
             ))}
           </ul>
-          <button className="primary-button text-center block mx-auto mt-20" type="submit">
+          <div className="mt-12 text-center">
+            <select
+              {...register('contact', {
+                required: 'Silakan mengisi data riwayat kontak Anda',
+              })}
+              className="form-field mt-1 p-2 text-gray-500 mb-6"
+              id="contact"
+              autoFocus
+              placeholder="Riwayat Kontak"
+            >
+              <option value="" selected disabled hidden>Riwayat Kontak</option>
+              <option value="Yes">Pernah Kontak</option>
+              <option value="No">Belum Pernah Kontak</option>
+              <option value="Dont Know">Tidak Tahu</option>
+            </select>
+            {errors.jenisKelamin && (
+              <p className="text-red-500 relative">
+                {errors.jenisKelamin.message}
+              </p>
+            )}
+          </div>
+          <button className="primary-button text-center block mx-auto mt-12" type="submit">
             Submit
           </button>
         </form>

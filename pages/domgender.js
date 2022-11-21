@@ -30,10 +30,13 @@ const DomGenderPage = () => {
     try {
       await updateDoc(userDocRef, {
         domisili: data.domisili,
-        jeniskelamin: data.jeniskelamin,
+        jenisKelamin: data.jenisKelamin,
         usia: data.usia,
       });
-      router.push('/classification')
+      router.push({
+        pathname: '/classification',
+        query: data,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -83,7 +86,7 @@ const DomGenderPage = () => {
 
           <div className="mb-6">
             <select
-              {...register('jeniskelamin', {
+              {...register('jenisKelamin', {
                 required: 'Silakan untuk memilih jenis kelamin anda',
               })}
               className="form-field mt-1 p-2 text-gray-500 mb-6"

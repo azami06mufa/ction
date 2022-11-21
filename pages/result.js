@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 import backgroundImage from '../public/background-image.jpg';
 
@@ -21,8 +22,26 @@ const healthFacilityData = [
   },
 ];
 
+const clasificationData = {
+  Mild : {
+    name : "Ringan",
+    recommendation : "Mengunjungi Fasilitas Kesehatan1",
+  },
+  Moderate : {
+    name : "Sedang",
+    recommendation : "Mengunjungi Fasilitas Kesehatan2",
+  },
+  Severe : {
+    name : "Berat",
+    recommendation : "Mengunjungi Fasilitas Kesehatan3",
+  },
+}
+
 const ResultPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const maxClass = router.query.Mild ? Object.keys(router.query).reduce((a, b) => router.query[a] > router.query[b] ? a : b) : 'Mild';
 
   const closeModal = () => {
     // redirect to userlanding
@@ -62,13 +81,13 @@ const ResultPage = () => {
       <div className="m-0 text-center pt-[15vh]">
         <h1 className="font-bold text-3xl mb-28">Hasil Klasifikasi</h1>
         <p className="text-[#5072B8] text-2xl font-extrabold mb-16">
-          Gejala Sedang
+          Gejala {clasificationData["Mild"]["name"]}
         </p>
         <p className="text-[#5072B8] text-2xl font-extrabold mb-4">
           Rekomendasi:
         </p>
         <p className="text-[#023047] text-2xl font-medium mb-20">
-          Mengunjungi Fasilitas Kesehatan
+          {clasificationData["Mild"]["recommendation"]}
         </p>
       </div>
 
