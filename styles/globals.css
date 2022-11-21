@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer base {
+	input[type="number"]::-webkit-inner-spin-button,
+	input[type="number"]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+  input[type="checkbox"] {
+    display:none;
+  }
+
+}
+
+.form-field {
+	@apply min-w-[500px] border-0 border-b-[2px] border-b-[#AAA] outline-0 px-1 py-0 bg-transparent;
+}
+
+.primary-button {
+  @apply w-[400px] bg-blue-200 font-bold text-lg py-2 rounded-2xl shadow-md
+}
