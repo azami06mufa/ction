@@ -73,7 +73,7 @@ const SignInPage = () => {
               className="form-field mt-1 p-2 text-gray-500 mb-6"
               id="email"
               autoFocus
-              placeholder="Username/E-Mail"
+              placeholder="E-Mail"
             ></input>
             {errors.email && (
               <div className="text-red-500">{errors.email.message}</div>
