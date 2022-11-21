@@ -9,7 +9,7 @@ import backgroundImage from '../public/background-image.jpg';
 const healthFacilityData = [
   {
     id: 1,
-    hospitalName: 'Rumah Sakit Umum Pusat (RSUP) Dr. Sardjito',
+    hospitalName: 'Rumah Sakit Umum Pusat Dr. Sardjito',
   },
   {
     id: 2,
