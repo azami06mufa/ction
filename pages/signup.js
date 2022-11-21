@@ -133,7 +133,7 @@ const SignUpPage = () => {
         <p className="mt-4">
           Sudah punya akun?{' '}
           <Link href="/signin">
-            <span className="text-[#F79256]">Daftar</span>
+            <span className="text-[#F79256]">Masuk</span>
           </Link>
         </p>
       </div>

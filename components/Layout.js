@@ -36,11 +36,11 @@ const Layout = ({ children }) => {
             />
           </Link>
 
-          {router.pathname === '/' ? 
+          {router.pathname === '/' || router.pathname === '/signin' || router.pathname === '/signup' ? 
           (
             <div>
               <Link href="/">
-                <p className="text-[#023047] font-bold">Admin</p>
+                <p className="text-[#023047] font-bold"></p>
               </Link>
             </div>
           ) 
