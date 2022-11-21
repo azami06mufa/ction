@@ -30,7 +30,7 @@ const UserLandingPage = () => {
               Classification System
             </h1>
           </div>
-          <p className="text-[#023047] text-2xl font-light">
+          <p className="text-[#023047] text-2xl font-normal">
             Membantu mengklasifikasi tingkat keparahan gejala COVID-19
           </p>
           <button
