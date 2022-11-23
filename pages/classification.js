@@ -70,15 +70,15 @@ const symptomsData = [
 const clasificationData = {
   Mild: {
     name: "Ringan",
-    recommendation: "Mengunjungi Fasilitas Kesehatan1",
+    recommendation: "Isolasi Mandiri di Rumah",
   },
   Moderate: {
     name: "Sedang",
-    recommendation: "Mengunjungi Fasilitas Kesehatan2",
+    recommendation: "Mengunjungi Fasilitas Kesehatan",
   },
   Severe: {
     name: "Berat",
-    recommendation: "Mengunjungi Fasilitas Kesehatan3",
+    recommendation: "Mengunjungi Fasilitas Kesehatan",
   },
 };
 
