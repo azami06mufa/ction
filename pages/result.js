@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { doc, getDoc} from "firebase/firestore";
+
+import { db } from "../config/firebaseconfig";
 
 import backgroundImage from '../public/background-image.jpg';
 
@@ -29,8 +32,92 @@ const healthFacilityDataYogya = [
     hospitalName: 'Rumah Sakit Siloam',
   },
   {
-    id: 5,
+    id: 6,
     hospitalName: 'Rumah Sakit DKT Dr Soetarto',
+  }
+];
+
+const healthFacilityDataSleman = [
+  {
+    id: 1,
+    hospitalName: 'RSUP Dr. Sardjito',
+  },
+  {
+    id: 2,
+    hospitalName: 'RSUD Sleman',
+  },
+  {
+    id: 3,
+    hospitalName: 'RSUD Prambanan',
+  },
+  {
+    id: 4,
+    hospitalName: 'Rumah Sakit JIH',
+  },
+  {
+    id: 5,
+    hospitalName: 'Rumah Sakit Sakina Idaman',
+  },
+  {
+    id: 6,
+    hospitalName: 'Rumah Sakit PKU Muhammadiyah Gamping',
+  },
+  {
+    id: 7,
+    hospitalName: 'Rumah Sakit Bhayangkara',
+  },
+  {
+    id: 8,
+    hospitalName: 'Rumah Sakit Anak UGM',
+  },
+  {
+    id: 9,
+    hospitalName: 'Rumah Sakit Hermina',
+  },
+  {
+    id: 10,
+    hospitalName: 'Rumah Sakit Panti Rini',
+  }
+];
+
+const healthFacilityDataBantul = [
+  {
+    id: 1,
+    hospitalName: 'RSUD Panembahan Senopati',
+  },
+  {
+    id: 2,
+    hospitalName: 'RSPAU Dr. Hardjolukito',
+  },
+  {
+    id: 3,
+    hospitalName: 'Rumah Sakit Santa Elizabeth',
+  },
+  {
+    id: 4,
+    hospitalName: 'Rumah Sakit PKU Muhammadiyah Bantul',
+  }
+];
+
+const healthFacilityDataGunungkidul = [
+  {
+    id: 1,
+    hospitalName: 'RSUD Wonosari',
+  },
+  {
+    id: 2,
+    hospitalName: 'Rumah Sakit Panti Rahayu',
+  }
+];
+
+const healthFacilityDataKulonprogo = [
+  {
+    id: 1,
+    hospitalName: 'RSUD Wates',
+  },
+  {
+    id: 2,
+    hospitalName: 'RSUD Nyia Ageng Serang',
   }
 ];
 
@@ -93,13 +180,13 @@ const ResultPage = () => {
       <div className="m-0 text-center pt-[15vh]">
         <h1 className="font-bold text-3xl mb-28">Hasil Klasifikasi</h1>
         <p className="text-[#5072B8] text-2xl font-extrabold mb-16">
-          Gejala {clasificationData["Mild"]["name"]}
+          Gejala {clasificationData[maxClass]["name"]}
         </p>
         <p className="text-[#5072B8] text-2xl font-extrabold mb-4">
           Rekomendasi:
         </p>
         <p className="text-[#023047] text-2xl font-medium mb-20">
-          {clasificationData["Mild"]["recommendation"]}
+          {clasificationData[maxClass]["recommendation"]}
         </p>
       </div>
 
@@ -124,6 +211,7 @@ const ResultPage = () => {
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
 
+
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center ">
               <Transition.Child
@@ -140,15 +228,15 @@ const ResultPage = () => {
                     as="h3"
                     className="text-4xl bg-[#284F63] text-[#FCD8B0] font-bold text-center px-2 py-4"
                   >
-                    Fasilitas Kesehatan Kota Yogyakarta
+                    Fasilitas Kesehatan Kota Sleman
                   </Dialog.Title>
                   <div className="mt-2 px-6 py-8">
                     <ul className="list-disc list-inside pl-9 -indent-9">
-                      {healthFacilityDataYogya.map((data, index) => (
+                      {healthFacilityDataSleman.map((data, index) => (
                         <li
                           key={data.id}
                           className={
-                            index === healthFacilityDataYogya.length - 1
+                            index === healthFacilityDataSleman.length - 1
                               ? 'text-[#284F63] font-bold text-3xl'
                               : 'text-[#284F63] font-bold text-3xl mb-4'
                           }

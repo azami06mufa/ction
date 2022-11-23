@@ -25,7 +25,7 @@ const Homepage = () => {
           }}
         />
       </div>
-      <div className="grid grid-cols-2 grid-rows-1">
+      <div className="fixed grid grid-cols-2 grid-rows-1">
         <div className="col-start-2 flex flex-col gap-24 items-center justify-center w-full h-screen text-center">
           <div>
             <h1 className="text-[rgb(247,146,86)] text-6xl font-bold">COVID-19</h1>

@@ -214,12 +214,12 @@ const ClassificationPage = () => {
               </li>
             ))}
           </ul>
-          <div className="mt-12 text-center">
+          <div className="mt-10 text-center">
             <select
               {...register('contact', {
                 required: 'Silakan mengisi data riwayat kontak Anda',
               })}
-              className="form-field mt-1 p-2 text-gray-500 mb-6"
+              className="form-field mt-0 p-2 text-gray-500 mb-4"
               id="contact"
               autoFocus
               placeholder="Riwayat Kontak"
@@ -235,7 +235,7 @@ const ClassificationPage = () => {
               </p>
             )}
           </div>
-          <button className="primary-button text-center block mx-auto mt-12" type="submit">
+          <button className="primary-button text-center block mx-auto mt-0 mb-0" type="submit">
             Submit
           </button>
         </form>
