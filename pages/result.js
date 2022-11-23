@@ -7,10 +7,10 @@ import { useRouter } from 'next/router';
 
 import backgroundImage from '../public/background-image.jpg';
 
-const healthFacilityData = [
+const healthFacilityDataYogya = [
   {
     id: 1,
-    hospitalName: 'Rumah Sakit Umum Pusat Dr. Sardjito',
+    hospitalName: 'Rumah Sakit PKU Muhammadiyah Yogyakarta',
   },
   {
     id: 2,
@@ -20,20 +20,32 @@ const healthFacilityData = [
     id: 3,
     hospitalName: 'Rumah Sakit Bethesda Yogyakarta',
   },
+  {
+    id: 4,
+    hospitalName: 'Rumah Sakit Pratama',
+  },
+  {
+    id: 5,
+    hospitalName: 'Rumah Sakit Siloam',
+  },
+  {
+    id: 5,
+    hospitalName: 'Rumah Sakit DKT Dr Soetarto',
+  }
 ];
 
 const clasificationData = {
   Mild : {
     name : "Ringan",
-    recommendation : "Mengunjungi Fasilitas Kesehatan1",
+    recommendation : "Isolasi Mandiri di Rumah",
   },
   Moderate : {
     name : "Sedang",
-    recommendation : "Mengunjungi Fasilitas Kesehatan2",
+    recommendation : "Mengunjungi Fasilitas Kesehatan",
   },
   Severe : {
     name : "Berat",
-    recommendation : "Mengunjungi Fasilitas Kesehatan3",
+    recommendation : "Mengunjungi Fasilitas Kesehatan",
   },
 }
 
@@ -126,17 +138,17 @@ const ResultPage = () => {
                 <Dialog.Panel className="w-full max-w-xl min-h-[500px] transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-5xl bg-[#284F63] text-[#FCD8B0] font-bold text-center px-2 py-4"
+                    className="text-4xl bg-[#284F63] text-[#FCD8B0] font-bold text-center px-2 py-4"
                   >
-                    Fasilitas Kesehatan Terdekat
+                    Fasilitas Kesehatan Kota Yogyakarta
                   </Dialog.Title>
                   <div className="mt-2 px-6 py-8">
                     <ul className="list-disc list-inside pl-9 -indent-9">
-                      {healthFacilityData.map((data, index) => (
+                      {healthFacilityDataYogya.map((data, index) => (
                         <li
                           key={data.id}
                           className={
-                            index === healthFacilityData.length - 1
+                            index === healthFacilityDataYogya.length - 1
                               ? 'text-[#284F63] font-bold text-3xl'
                               : 'text-[#284F63] font-bold text-3xl mb-4'
                           }
@@ -148,9 +160,9 @@ const ResultPage = () => {
                   </div>
 
                   <div>
-                    <button
+                    <button 
                       type="button"
-                      className="bg-[#5072B8] text-white px-8 py-1 text-center rounded-2xl font-bold mx-auto flex justify-center"
+                      className="bg-[#5072B8] text-white px-8 py-1 text-center rounded-2xl font-bold mx-auto mb-4 flex justify-center"
                       onClick={closeModal}
                     >
                       OK

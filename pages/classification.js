@@ -1,70 +1,90 @@
-import React from 'react';
-import Image from 'next/image';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+import React from "react";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { doc, setDoc, collection, addDoc } from "firebase/firestore";
+import { UserAuth } from "../context/AuthContext";
 
-import backgroundImage from '../public/background-image.jpg';
-import placeholder from '../public/placeholder.png';
+import { db } from "../config/firebaseconfig";
+
+import backgroundImage from "../public/background-image.jpg";
+import placeholder from "../public/placeholder.png";
 
 const symptomsData = [
   {
     id: 1,
-    name: 'Fever',
-    value: 'Fever',
-    img: require('../public/placeholder.png'),
+    name: "Fever",
+    value: "Fever",
+    img: require("../public/fever.jpeg"),
   },
   {
     id: 2,
-    name: 'Tiredness',
-    value: 'Tiredness',
-    img: require('../public/placeholder.png'),
+    name: "Tiredness",
+    value: "Tiredness",
+    img: require("../public/tiredness.jpeg"),
   },
   {
     id: 3,
     name: 'Dry-Cough',
     value: 'Dry-Cough',
-    img: require('../public/placeholder.png'),
+    img: require("../public/dry-cough.jpeg"),
   },
   {
     id: 4,
-    name: 'Difficulty-in-Breathing',
-    value: 'Difficulty-in-Breathing',
-    img: require('../public/placeholder.png'),
+    name: "Difficulty-in-Breathing",
+    value: "Difficulty-in-Breathing",
+    img: require("../public/difficulty-in-breathing.jpeg"),
   },
   {
     id: 5,
-    name: 'Sore-Throat',
-    value: 'Sore-Throat',
-    img: require('../public/placeholder.png'),
+    name: "Sore-Throat",
+    value: "Sore-Throat",
+    img: require("../public/sore-throat.jpeg"),
   },
   {
     id: 6,
-    name: 'Pains',
-    value: 'Pains',
-    img: require('../public/placeholder.png'),
+    name: "Pains",
+    value: "Pains",
+    img: require("../public/pains.jpeg"),
   },
   {
     id: 7,
-    name: 'Nasal-Congestion',
-    value: 'Nasal-Congestion',
-    img: require('../public/placeholder.png'),
+    name: "Nasal-Congestion",
+    value: "Nasal-Congestion",
+    img: require("../public/nasal-congestion.jpeg"),
   },
   {
     id: 8,
-    name: 'Runny-Nose',
-    value: 'Runny-Nose',
-    img: require('../public/placeholder.png'),
+    name: "Runny-Nose",
+    value: "Runny-Nose",
+    img: require("../public/runny-nose.jpeg"),
   },
   {
     id: 9,
-    name: 'Diarrhea',
-    value: 'Diarrhea',
-    img: require('../public/placeholder.png'),
+    name: "Diarrhea",
+    value: "Diarrhea",
+    img: require("../public/diarrhhea.jpeg"),
   },
 ];
 
+const clasificationData = {
+  Mild: {
+    name: "Ringan",
+    recommendation: "Mengunjungi Fasilitas Kesehatan1",
+  },
+  Moderate: {
+    name: "Sedang",
+    recommendation: "Mengunjungi Fasilitas Kesehatan2",
+  },
+  Severe: {
+    name: "Berat",
+    recommendation: "Mengunjungi Fasilitas Kesehatan3",
+  },
+};
+
 const ClassificationPage = () => {
   const router = useRouter();
+  const { user } = UserAuth();
 
   const {
     handleSubmit,
@@ -73,31 +93,60 @@ const ClassificationPage = () => {
   } = useForm();
 
   const submitHandler = async (data) => {
-    console.log(data);
-    console.log(router.query);
-    console.log(JSON.stringify({
-      ...data,
-      ...router.query
-    }))
+    // console.log(data);
+     // console.log(router.query);
+     console.log(
+      JSON.stringify({
+        ...data,
+        ...router.query,
+      })
+    );
     try {
       const response = await fetch("http://185.223.207.122:8020/predict", {
         method: "POST",
         body: JSON.stringify({
           ...data,
-          ...router.query
+          ...router.query,
         }),
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
       });
       const prediction = await response.json();
+      let sorted = [];
+       for (let data in clasificationData) {
+         sorted.push([data, clasificationData[data]]);
+       }
+       const resultData = sorted[0];
+       console.log(JSON.stringify(resultData[1].name));
+
+       try {
+         const userRef = collection(db, "user", user.uid, "history");
+
+         await addDoc(userRef, {
+           criteria: resultData[1].name,
+           recommendation: resultData[1].recommendation,
+           dateCreated: Intl.DateTimeFormat("en-GB", {
+             year: "numeric",
+             month: "long",
+             day: "2-digit",
+             hour: "2-digit",
+             minute: "2-digit",
+             second: "2-digit",
+           }).format(Date.now()),
+         });
+       } catch (err) {
+         console.log(err);
+       }
+
       router.push({
-        pathname: '/result',
+        pathname: "/result",
         query: prediction,
       });
+      console.log(`ini prediciton ${JSON.stringify(prediction)}`);
     } catch (err) {
       console.log(err);
-    }    
+    }
   };
 
   return (

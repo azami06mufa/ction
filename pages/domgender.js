@@ -69,8 +69,7 @@ const DomGenderPage = () => {
           onSubmit={handleSubmit(submitHandler)}
         >
           <div className="mb-6">
-            <input
-              type="text"
+            <select
               {...register('domisili', {
                 required: 'Silakan masukkan domisili Anda',
               })}
@@ -78,7 +77,13 @@ const DomGenderPage = () => {
               id="domisili"
               autoFocus
               placeholder="Domisili"
-            ></input>
+              >
+              <option value="Kota Yogyakarta">Kota Yogyakarta</option>
+              <option value="Kabupaten Sleman">Kabupaten Sleman</option>
+              <option value="Kabupaten Bantul">Kabupaten Bantul</option>
+              <option value="Kabupaten Gunungkidul">Kabupaten Gunungkidul</option>
+              <option value="Kabupaten Kulonprogo">Kabupaten Kulonprogo</option>
+            </select>
             {errors.domisili && (
               <div className="text-red-500">{errors.domisili.message}</div>
             )}
