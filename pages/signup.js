@@ -31,7 +31,7 @@ const SignUpPage = () => {
 
   const submitHandler = async (data) => {
     try {
-      signUp(data.username, data.email, data.domisili, data.password);
+      signUp(data.username, data.email, data.password);
       setIsSuccess(true);
     } catch (err) {
       console.log(err);
@@ -94,7 +94,7 @@ const SignUpPage = () => {
             )}
           </div>
 
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <input
               type="text"
               {...register('domisili', {
@@ -108,7 +108,7 @@ const SignUpPage = () => {
             {errors.domisili && (
               <div className="text-red-500">{errors.domisili.message}</div>
             )}
-          </div>
+          </div> */}
 
           <div className="mb-6">
             <input

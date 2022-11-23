@@ -9,26 +9,26 @@ import backgroundImage from '../public/background-image.jpg';
 
 import { useForm } from 'react-hook-form';
 
-const userHistoryData = [
-  {
-    inputDate: new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-    }).format(Date.now()),
-    result: "Gejala Ringan",
-    recommendation: "Isolasi Mandiri di Rumah",
-  },
-  {
-    inputDate: new Intl.DateTimeFormat('en-GB', {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-    }).format(Date.now()),
-    result: "Gejala Berat",
-    recommendation: "Mengunjungi fasilitas kesehatan terdekat",
-  },
-];
+// const userHistoryData = [
+//   {
+//     inputDate: new Intl.DateTimeFormat("en-GB", {
+//       year: "numeric",
+//       month: "long",
+//       day: "2-digit",
+//     }).format(Date.now()),
+//     result: "Gejala Ringan",
+//     recommendation: "Isolasi Mandiri di Rumah",
+//   },
+//   {
+//     inputDate: new Intl.DateTimeFormat('en-GB', {
+//       year: "numeric",
+//       month: "long",
+//       day: "2-digit",
+//     }).format(Date.now()),
+//     result: "Gejala Berat",
+//     recommendation: "Mengunjungi fasilitas kesehatan terdekat",
+//   },
+// ];
 
 const HistoryPage = () => {
   const [historyData, setHistoryData] = useState([]);

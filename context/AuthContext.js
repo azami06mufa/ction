@@ -11,12 +11,12 @@ import { auth } from '../config/firebaseconfig';
 
 const UserContext = createContext();
 
-const storeCustomerId = async (userUid, username, email, domisili) => {
+const storeCustomerId = async (userUid, username, email) => {
   await setDoc(doc(db, 'user', userUid), {
     id: userUid,
     username: username,
     email: email,
-    domisili: domisili,
+    domisili: "",
     jeniskelamin: "",
     usia: "",
   });
@@ -25,10 +25,10 @@ const storeCustomerId = async (userUid, username, email, domisili) => {
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const signUp = (username, email, domisili, password) => {
+  const signUp = (username, email, password) => {
     createUserWithEmailAndPassword(auth, email, password).then(
       (registeredUser) =>
-        storeCustomerId(registeredUser.user.uid, username, email, domisili)
+        storeCustomerId(registeredUser.user.uid, username, email)
     );
   };
 
