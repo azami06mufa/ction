@@ -4,11 +4,12 @@ import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { doc, getDoc} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../config/firebaseconfig";
 
 import backgroundImage from '../public/background-image.jpg';
+
 
 const healthFacilityDataYogya = [
   {
@@ -68,7 +69,7 @@ const healthFacilityDataSleman = [
   },
   {
     id: 8,
-    hospitalName: 'Rumah Sakit Anak UGM',
+    hospitalName: 'Rumah Sakit Akademik UGM',
   },
   {
     id: 9,
@@ -157,7 +158,7 @@ const ResultPage = () => {
     formState: { errors },
   } = useForm();
 
-  const submitHandler = (data) => {
+  const submitHandler = async(data) => {
     console.log(data);
   };
 
@@ -232,13 +233,13 @@ const ResultPage = () => {
                   </Dialog.Title>
                   <div className="mt-2 px-6 py-8">
                     <ul className="list-disc list-inside pl-9 -indent-9">
-                      {healthFacilityDataSleman.map((data, index) => (
+                      {healthFacilityDataYogya.map((data, index) => (
                         <li
                           key={data.id}
                           className={
-                            index === healthFacilityDataSleman.length - 1
-                              ? 'text-[#284F63] font-bold text-3xl'
-                              : 'text-[#284F63] font-bold text-3xl mb-4'
+                            index === healthFacilityDataYogya.length - 1
+                              ? 'text-[#284F63] font-bold text-2xl'
+                              : 'text-[#284F63] font-bold text-2xl mb-4'
                           }
                         >
                           {data.hospitalName}

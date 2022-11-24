@@ -30,6 +30,7 @@ import { useForm } from 'react-hook-form';
 //   },
 // ];
 
+
 const HistoryPage = () => {
   const [historyData, setHistoryData] = useState([]);
   const [loading, setLoading] = useState(true);
