@@ -207,7 +207,7 @@ const ResultPage = () => {
   };
 
   if (loading) {
-    return <div>Loadingg</div>;
+    return <div>Loading</div>;
   }
 
   return (
@@ -292,7 +292,9 @@ const ResultPage = () => {
                              }
                            >
                              {data.hospitalName}
-                             <a href={data.hospitalDirection}>Buka Google Maps</a>
+                             <div className='text-[#478EF0] font-extralight text-sm'>
+                             <a href={ data.hospitalDirection}>Buka Google Maps</a>
+                             </div>
                            </li>
                          ))
                        ) : userLocation === "Kabupaten Sleman" ? (
@@ -306,7 +308,9 @@ const ResultPage = () => {
                              }
                            >
                              {data.hospitalName}
-                             <a href={data.hospitalDirection}>Buka Google Maps</a>
+                             <div className='text-[#478EF0] font-extralight text-sm'>
+                             <a href={ data.hospitalDirection}>Buka Google Maps</a>
+                             </div>
                            </li>
                          ))
                        ) : userLocation === "Kabupaten Bantul" ? (
@@ -320,7 +324,9 @@ const ResultPage = () => {
                             }
                           >
                             {data.hospitalName}
-                            <a href={data.hospitalDirection}>Buka Google Maps</a>
+                            <div className='text-[#478EF0] font-extralight text-sm'>
+                             <a href={ data.hospitalDirection}>Buka Google Maps</a>
+                             </div>
                           </li>
                         ))
                         ) : userLocation === "Kabupaten Gunungkidul" ? (
@@ -334,7 +340,9 @@ const ResultPage = () => {
                               }
                             >
                               {data.hospitalName}
-                              <a href={data.hospitalDirection}>Buka Google Maps</a>
+                              <div className='text-[#478EF0] font-extralight text-sm'>
+                             <a href={ data.hospitalDirection}>Buka Google Maps</a>
+                             </div>
                             </li>
                           ))
                           ) : userLocation === "Kabupaten Kulonprogo" ? (
@@ -348,7 +356,9 @@ const ResultPage = () => {
                                 }
                               >
                                 {data.hospitalName}
-                                <a href={data.hospitalDirection}>Buka Google Maps</a>
+                                <div className='text-[#478EF0] font-extralight text-sm'>
+                             <a href={ data.hospitalDirection}>Buka Google Maps</a>
+                             </div>
                               </li>
                             ))
                        ) : (<li>Rumah sakit terdekat tidak ditemukan</li>) }
