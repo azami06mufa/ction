@@ -14,26 +14,32 @@ const KotaYogyakartaHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'Rumah Sakit PKU Muhammadiyah Yogyakarta',
+    hospitalDirection: `https://goo.gl/maps/EPgTAXVue55zcqBn6`,
   },
   {
     id: 2,
     hospitalName: 'Rumah Sakit Panti Rapih',
+    hospitalDirection: `https://goo.gl/maps/8yTsQzDJ9gbUHCca8`,
   },
   {
     id: 3,
     hospitalName: 'Rumah Sakit Bethesda Yogyakarta',
+    hospitalDirection: `https://goo.gl/maps/AzJx3ma1sPtcQwed7`,
   },
   {
     id: 4,
     hospitalName: 'Rumah Sakit Pratama',
+    hospitalDirection: `https://goo.gl/maps/YmERSNX81HHrxno38`,
   },
   {
     id: 5,
     hospitalName: 'Rumah Sakit Siloam',
+    hospitalDirection: `https://goo.gl/maps/gQrQCqeJmpF4oEtU9`,
   },
   {
     id: 6,
     hospitalName: 'Rumah Sakit DKT Dr Soetarto',
+    hospitalDirection: `https://goo.gl/maps/Jdup4qVpqa4terou9`,
   }
 ];
 
@@ -41,42 +47,52 @@ const KabupatenSlemanHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'RSUP Dr. Sardjito',
+    hospitalDirection: 'https://goo.gl/maps/whm6XBs1XSFELoFA6',
   },
   {
     id: 2,
     hospitalName: 'RSUD Sleman',
+    hospitalDirection: `https://goo.gl/maps/XLFEw6XGFee4jYwD8`,
   },
   {
     id: 3,
     hospitalName: 'RSUD Prambanan',
+    hospitalDirection: `https://goo.gl/maps/T3azp6QmHH7sD5Cg7`,
   },
   {
     id: 4,
     hospitalName: 'Rumah Sakit JIH',
+    hospitalDirection: `https://goo.gl/maps/k9tqdCuFaTdspRgDA`,
   },
   {
     id: 5,
     hospitalName: 'Rumah Sakit Sakina Idaman',
+    hospitalDirection: `https://goo.gl/maps/T1sJv4KJeBH1kbwS7`,
   },
   {
     id: 6,
     hospitalName: 'Rumah Sakit PKU Muhammadiyah Gamping',
+    hospitalDirection: `https://goo.gl/maps/yZiboSa8jLfkCRqA7`,
   },
   {
     id: 7,
     hospitalName: 'Rumah Sakit Bhayangkara',
+    hospitalDirection: `https://goo.gl/maps/XLFEw6XGFee4jYwD8`,
   },
   {
     id: 8,
     hospitalName: 'Rumah Sakit Akademik UGM',
+    hospitalDirection: `https://goo.gl/maps/K1yaBoGQd1WN2QPu7`,
   },
   {
     id: 9,
     hospitalName: 'Rumah Sakit Hermina',
+    hospitalDirection: `https://goo.gl/maps/5B3gZnufpYiYWfbi7`,
   },
   {
     id: 10,
     hospitalName: 'Rumah Sakit Panti Rini',
+    hospitalDirection: 'https://goo.gl/maps/HqQWPQtxp8uVGMQE6',
   }
 ];
 
@@ -84,18 +100,22 @@ const KabupatenBantulHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'RSUD Panembahan Senopati',
+    hospitalDirection: `https://goo.gl/maps/5d58hMgyRWMMu7nG7`,
   },
   {
     id: 2,
     hospitalName: 'RSPAU Dr. Hardjolukito',
+    hospitalDirection: `https://goo.gl/maps/ApXgL8ezW6kWRcmT9`,
   },
   {
     id: 3,
     hospitalName: 'Rumah Sakit Santa Elizabeth',
+    hospitalDirection: `https://goo.gl/maps/iRCo5RGB4FSaXRBSA`,
   },
   {
     id: 4,
     hospitalName: 'Rumah Sakit PKU Muhammadiyah Bantul',
+    hospitalDirection: `https://goo.gl/maps/Sw6kwC1AizMw6yfQ9`,
   }
 ];
 
@@ -103,10 +123,12 @@ const KabupatenGunungkidulHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'RSUD Wonosari',
+    hospitalDirection: `https://goo.gl/maps/326ARVwzxWcWV3kh6`,
   },
   {
     id: 2,
     hospitalName: 'Rumah Sakit Panti Rahayu',
+    hospitalDirection: `https://goo.gl/maps/A7Mo6HufJhH4LyrM6`,
   }
 ];
 
@@ -114,10 +136,12 @@ const KabupatenKulonprogoHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'RSUD Wates',
+    hospitalDirection: `https://goo.gl/maps/VDDNuLdqioBsRdTy5`,
   },
   {
     id: 2,
     hospitalName: 'RSUD Nyia Ageng Serang',
+    hospitalDirection: `https://goo.gl/maps/G3MWuCb94wk6nReZ6`,
   }
 ];
 
@@ -268,6 +292,7 @@ const ResultPage = () => {
                              }
                            >
                              {data.hospitalName}
+                             <a href={data.hospitalDirection}>Buka Google Maps</a>
                            </li>
                          ))
                        ) : userLocation === "Kabupaten Sleman" ? (
@@ -281,6 +306,7 @@ const ResultPage = () => {
                              }
                            >
                              {data.hospitalName}
+                             <a href={data.hospitalDirection}>Buka Google Maps</a>
                            </li>
                          ))
                        ) : userLocation === "Kabupaten Bantul" ? (
@@ -294,6 +320,7 @@ const ResultPage = () => {
                             }
                           >
                             {data.hospitalName}
+                            <a href={data.hospitalDirection}>Buka Google Maps</a>
                           </li>
                         ))
                         ) : userLocation === "Kabupaten Gunungkidul" ? (
@@ -307,6 +334,7 @@ const ResultPage = () => {
                               }
                             >
                               {data.hospitalName}
+                              <a href={data.hospitalDirection}>Buka Google Maps</a>
                             </li>
                           ))
                           ) : userLocation === "Kabupaten Kulonprogo" ? (
@@ -320,6 +348,7 @@ const ResultPage = () => {
                                 }
                               >
                                 {data.hospitalName}
+                                <a href={data.hospitalDirection}>Buka Google Maps</a>
                               </li>
                             ))
                        ) : (<li>Rumah sakit terdekat tidak ditemukan</li>) }
