@@ -1,17 +1,16 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Dialog, Transition } from '@headlessui/react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { doc, getDoc } from "firebase/firestore";
-
+import { doc, setDoc, collection, addDoc, getDoc } from "firebase/firestore";
+import { UserAuth } from '../context/AuthContext';
 import { db } from "../config/firebaseconfig";
 
 import backgroundImage from '../public/background-image.jpg';
 
-
-const healthFacilityDataYogya = [
+const KotaYogyakartaHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'Rumah Sakit PKU Muhammadiyah Yogyakarta',
@@ -38,7 +37,7 @@ const healthFacilityDataYogya = [
   }
 ];
 
-const healthFacilityDataSleman = [
+const KabupatenSlemanHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'RSUP Dr. Sardjito',
@@ -81,7 +80,7 @@ const healthFacilityDataSleman = [
   }
 ];
 
-const healthFacilityDataBantul = [
+const KabupatenBantulHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'RSUD Panembahan Senopati',
@@ -100,7 +99,7 @@ const healthFacilityDataBantul = [
   }
 ];
 
-const healthFacilityDataGunungkidul = [
+const KabupatenGunungkidulHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'RSUD Wonosari',
@@ -111,7 +110,7 @@ const healthFacilityDataGunungkidul = [
   }
 ];
 
-const healthFacilityDataKulonprogo = [
+const KabupatenKulonprogoHealthFacilityData = [
   {
     id: 1,
     hospitalName: 'RSUD Wates',
@@ -123,34 +122,55 @@ const healthFacilityDataKulonprogo = [
 ];
 
 const clasificationData = {
-  Mild : {
-    name : "Ringan",
-    recommendation : "Isolasi Mandiri di Rumah",
+  Mild: {
+    name : 'Ringan',
+    recommendation : 'Isolasi Mandiri di Rumah',
   },
-  Moderate : {
-    name : "Sedang",
-    recommendation : "Mengunjungi Fasilitas Kesehatan",
+  Moderate: {
+    name : 'Sedang',
+    recommendation : 'Mengunjungi Fasilitas Kesehatan',
   },
-  Severe : {
-    name : "Berat",
-    recommendation : "Mengunjungi Fasilitas Kesehatan",
+  Severe: {
+    name : 'Berat',
+    recommendation : 'Mengunjungi Fasilitas Kesehatan',
   },
-}
+};
 
 const ResultPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [userLocation, setUserLocation] = useState();
+  const [loading, setLoading] = useState(true);
+  const { user } = UserAuth();
   const router = useRouter();
 
-  const maxClass = router.query.Mild ? Object.keys(router.query).reduce((a, b) => router.query[a] > router.query[b] ? a : b) : 'Mild';
+  const maxClass = router.query.Mild
+     ? Object.keys(router.query).reduce((a, b) =>
+         router.query[a] > router.query[b] ? a : b
+       )
+     : 'Mild';
 
   const closeModal = () => {
     // redirect to userlanding
     setIsOpen(false);
   };
-
   const openModal = () => {
-    setIsOpen(true);
-  };
+     setIsOpen(true);
+   };
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const userProfileRef = doc(db, 'user', user.uid);
+        const userProfileSnapshot = await getDoc(userProfileRef);
+        const userProfileData = userProfileSnapshot.data();
+        setUserLocation(userProfileData.domisili);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserData();
+  }, [loading, user.uid]);
 
   const {
     handleSubmit,
@@ -158,9 +178,13 @@ const ResultPage = () => {
     formState: { errors },
   } = useForm();
 
-  const submitHandler = async(data) => {
+  const submitHandler = (data) => {
     console.log(data);
   };
+
+  if (loading) {
+    return <div>Loadingg</div>;
+  }
 
   return (
     <div>
@@ -181,13 +205,13 @@ const ResultPage = () => {
       <div className="m-0 text-center pt-[15vh]">
         <h1 className="font-bold text-3xl mb-28">Hasil Klasifikasi</h1>
         <p className="text-[#5072B8] text-2xl font-extrabold mb-16">
-          Gejala {clasificationData[maxClass]["name"]}
+          Gejala {clasificationData[maxClass]['name']}
         </p>
         <p className="text-[#5072B8] text-2xl font-extrabold mb-4">
           Rekomendasi:
         </p>
         <p className="text-[#023047] text-2xl font-medium mb-20">
-          {clasificationData[maxClass]["recommendation"]}
+          {clasificationData[maxClass]['recommendation']}
         </p>
       </div>
 
@@ -227,24 +251,78 @@ const ResultPage = () => {
                 <Dialog.Panel className="w-full max-w-xl min-h-[500px] transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-4xl bg-[#284F63] text-[#FCD8B0] font-bold text-center px-2 py-4"
+                    className="text-3xl bg-[#284F63] text-[#FCD8B0] font-bold text-center px-2 py-4"
                   >
-                    Fasilitas Kesehatan Kota Sleman
+                    Fasilitas Kesehatan Terdekat
                   </Dialog.Title>
                   <div className="mt-2 px-6 py-8">
                     <ul className="list-disc list-inside pl-9 -indent-9">
-                      {healthFacilityDataYogya.map((data, index) => (
-                        <li
-                          key={data.id}
-                          className={
-                            index === healthFacilityDataYogya.length - 1
-                              ? 'text-[#284F63] font-bold text-2xl'
-                              : 'text-[#284F63] font-bold text-2xl mb-4'
-                          }
-                        >
-                          {data.hospitalName}
-                        </li>
-                      ))}
+                    {userLocation === "Kota Yogyakarta" ? (
+                         KotaYogyakartaHealthFacilityData.map((data, index) => (
+                           <li
+                             key={data.id}
+                             className={
+                               index === KotaYogyakartaHealthFacilityData.length - 1
+                                 ? 'text-[#284F63] font-bold text-2xl'
+                                 : 'text-[#284F63] font-bold text-2xl mb-4'
+                             }
+                           >
+                             {data.hospitalName}
+                           </li>
+                         ))
+                       ) : userLocation === "Kabupaten Sleman" ? (
+                        KabupatenSlemanHealthFacilityData.map((data, index) => (
+                           <li
+                             key={data.id}
+                             className={
+                               index === KabupatenSlemanHealthFacilityData.length - 1
+                                 ? 'text-[#284F63] font-bold text-2xl'
+                                 : 'text-[#284F63] font-bold text-2xl mb-4'
+                             }
+                           >
+                             {data.hospitalName}
+                           </li>
+                         ))
+                       ) : userLocation === "Kabupaten Bantul" ? (
+                        KabupatenBantulHealthFacilityData.map((data, index) => (
+                          <li
+                            key={data.id}
+                            className={
+                              index === KabupatenBantulHealthFacilityData.length - 1
+                                ? 'text-[#284F63] font-bold text-2xl'
+                                : 'text-[#284F63] font-bold text-2xl mb-4'
+                            }
+                          >
+                            {data.hospitalName}
+                          </li>
+                        ))
+                        ) : userLocation === "Kabupaten Gunungkidul" ? (
+                          KabupatenGunungkidulHealthFacilityData.map((data, index) => (
+                            <li
+                              key={data.id}
+                              className={
+                                index === KabupatenGunungkidulHealthFacilityData.length - 1
+                                  ? 'text-[#284F63] font-bold text-2xl'
+                                  : 'text-[#284F63] font-bold text-2xl mb-4'
+                              }
+                            >
+                              {data.hospitalName}
+                            </li>
+                          ))
+                          ) : userLocation === "Kabupaten Kulonprogo" ? (
+                            KabupatenKulonprogoHealthFacilityData.map((data, index) => (
+                              <li
+                                key={data.id}
+                                className={
+                                  index === KabupatenKulonprogoHealthFacilityData.length - 1
+                                    ? 'text-[#284F63] font-bold text-2xl'
+                                    : 'text-[#284F63] font-bold text-2xl mb-4'
+                                }
+                              >
+                                {data.hospitalName}
+                              </li>
+                            ))
+                       ) : (<li>Rumah sakit terdekat tidak ditemukan</li>) }
                     </ul>
                   </div>
 

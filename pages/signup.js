@@ -94,22 +94,6 @@ const SignUpPage = () => {
             )}
           </div>
 
-          {/* <div className="mb-6">
-            <input
-              type="text"
-              {...register('domisili', {
-                required: 'Silakan masukkan domisili Anda',
-              })}
-              className="form-field mt-1 p-2 text-gray-500 mb-6"
-              id="domisili"
-              autoFocus
-              placeholder="Domisili"
-            ></input>
-            {errors.domisili && (
-              <div className="text-red-500">{errors.domisili.message}</div>
-            )}
-          </div> */}
-
           <div className="mb-6">
             <input
               type="password"

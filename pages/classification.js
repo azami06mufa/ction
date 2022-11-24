@@ -235,7 +235,7 @@ const ClassificationPage = () => {
               </p>
             )}
           </div>
-          <button className="primary-button text-center block mx-auto mt-0 mb-0" type="submit">
+          <button className="primary-button text-center block mx-auto mt-0 mb-4" type="submit">
             Submit
           </button>
         </form>
