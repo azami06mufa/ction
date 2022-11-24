@@ -50,18 +50,16 @@ const HistoryPage = () => {
       const snapshot = await getDocs(
         collection(db, `user/${user.uid}/history`)
       );
-      snapshot.docs.map((doc) => {
-        console.log(doc.data());
-        setHistoryData([...historyData, doc.data()]);
+      const data =  snapshot.docs.map((doc) => {
+        return doc.data();
       });
+      setHistoryData(data);
       setLoading(false);
     };
 
     getData();
   }, [loading]);
 
-  // const snapshot = await firebase.firestore().collection('events').get()
-  //   return snapshot.docs.map(doc => doc.data());
 
   if (loading) {
     return <div>loading</div>;
